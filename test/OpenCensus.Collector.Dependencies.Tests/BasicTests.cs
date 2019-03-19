@@ -55,7 +55,7 @@ namespace OpenCensus.Collector.Dependencies.Tests
 
                 var tf = new Mock<ITextFormat>();
                 tf
-                    .Setup(m => m.Inject<HttpRequestMessage>(It.IsAny<ISpanContext>(), It.IsAny<HttpRequestMessage>(), It.IsAny<Action<HttpRequestMessage, string, string>>()))
+                    .Setup(m => m.Inject<HttpRequestMessage>(It.IsAny<ISpan>(), It.IsAny<HttpRequestMessage>(), It.IsAny<Action<HttpRequestMessage, string, string>>()))
                     .Callback((ISpanContext sc, HttpRequestMessage obj, Action<HttpRequestMessage, string, string> setter) =>
                     {
                         expectedTraceId = sc.TraceId;

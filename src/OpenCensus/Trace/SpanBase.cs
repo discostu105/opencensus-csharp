@@ -67,6 +67,8 @@ namespace OpenCensus.Trace
         /// <inheritdoc/>
         public abstract SpanKind? Kind { get; set; }
 
+        public Dictionary<string, object> LocalContext { get; } = new Dictionary<string, object>();
+
         /// <inheritdoc/>
         public SpanBase Next { get; set; }
 

@@ -39,7 +39,7 @@ namespace OpenCensus.Trace.Propagation
         /// <param name="spanContext">Span context to transmit over the wire.</param>
         /// <param name="carrier">Object to set context on. Instance of this object will be passed to setter.</param>
         /// <param name="setter">Action that will set name and value pair on the object.</param>
-        void Inject<T>(ISpanContext spanContext, T carrier, Action<T, string, string> setter);
+        void Inject<T>(ISpan spanContext, T carrier, Action<T, string, string> setter);
 
         /// <summary>
         /// Extracts span context from textual representation.

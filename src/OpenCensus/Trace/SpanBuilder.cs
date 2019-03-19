@@ -53,6 +53,7 @@ namespace OpenCensus.Trace
             Timer timestampConverter = null;
             if (this.RemoteParentSpanContext == null)
             {
+
                 // This is not a child of a remote Span. Get the parent SpanContext from the parent Span if
                 // any.
                 ISpan parent = this.Parent;
@@ -74,7 +75,7 @@ namespace OpenCensus.Trace
                 }
             }
 
-            return this.StartSpanInternal(
+            var span = this.StartSpanInternal(
                 parentContext,
                 hasRemoteParent,
                 this.Name,
@@ -82,6 +83,16 @@ namespace OpenCensus.Trace
                 this.ParentLinks,
                 this.RecordEvents,
                 timestampConverter);
+
+            if (this.RemoteParentSpanContext == null)
+            {
+                Tracing.Tracer.Callbacks?.OnSpanStartWithExplicitParent(span, this.Parent);
+            }
+            else
+            {
+                Tracing.Tracer.Callbacks?.OnSpanStartWithRemoteParent(span, this.RemoteParentSpanContext);
+            }
+            return span;
         }
 
         public override ISpanBuilder SetSampler(ISampler sampler)

@@ -162,17 +162,17 @@ namespace OpenCensus.Trace.Propagation
         }
 
         /// <inheritdoc/>
-        public override void Inject<T>(ISpanContext spanContext, T carrier, Action<T, string, string> setter)
+        public override void Inject<T>(ISpan spanContext, T carrier, Action<T, string, string> setter)
         {
-            var traceparent = string.Concat("00-", spanContext.TraceId.ToLowerBase16(), "-", spanContext.SpanId.ToLowerBase16());
-            traceparent = string.Concat(traceparent, spanContext.TraceOptions.IsSampled ? "-01" : "-00");
+            var traceparent = string.Concat("00-", spanContext.Context.TraceId.ToLowerBase16(), "-", spanContext.Context.SpanId.ToLowerBase16());
+            traceparent = string.Concat(traceparent, spanContext.Context.TraceOptions.IsSampled ? "-01" : "-00");
 
             setter(carrier, "traceparent", traceparent);
 
             StringBuilder sb = new StringBuilder();
             var isFirst = true;
 
-            foreach (var entry in spanContext.Tracestate.Entries)
+            foreach (var entry in spanContext.Context.Tracestate.Entries)
             {
                 if (isFirst)
                 {

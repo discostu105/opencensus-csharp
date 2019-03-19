@@ -111,7 +111,7 @@ namespace OpenCensus.Trace.Propagation
         }
 
         /// <inheritdoc/>
-        public override void Inject<T>(ISpanContext spanContext, T carrier, Action<T, string, string> setter)
+        public override void Inject<T>(ISpan spanContext, T carrier, Action<T, string, string> setter)
         {
             if (spanContext == null)
             {
@@ -128,9 +128,9 @@ namespace OpenCensus.Trace.Propagation
                 throw new ArgumentNullException(nameof(setter));
             }
 
-            setter(carrier, XB3TraceId, spanContext.TraceId.ToLowerBase16());
-            setter(carrier, XB3SpanId, spanContext.SpanId.ToLowerBase16());
-            if (spanContext.TraceOptions.IsSampled)
+            setter(carrier, XB3TraceId, spanContext.Context.TraceId.ToLowerBase16());
+            setter(carrier, XB3SpanId, spanContext.Context.SpanId.ToLowerBase16());
+            if (spanContext.Context.TraceOptions.IsSampled)
             {
                 setter(carrier, XB3Sampled, SampledValue);
             }

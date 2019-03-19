@@ -400,6 +400,7 @@ namespace OpenCensus.Trace
             }
 
             this.startEndHandler.OnEnd(this);
+            Tracing.Tracer.Callbacks?.OnSpanEnd(this);
         }
 
         public override ISpanData ToSpanData()

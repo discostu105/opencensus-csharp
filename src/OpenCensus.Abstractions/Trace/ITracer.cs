@@ -23,6 +23,8 @@ namespace OpenCensus.Trace
     /// </summary>
     public interface ITracer
     {
+        IStartEndSpanCallbacks Callbacks { get; set; }
+
         /// <summary>
         /// Gets the current span from the context.
         /// </summary>

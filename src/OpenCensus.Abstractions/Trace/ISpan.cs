@@ -52,6 +52,8 @@ namespace OpenCensus.Trace
         /// </summary>
         SpanKind? Kind { get; set; }
 
+        Dictionary<string, object> LocalContext { get; }
+
         /// <summary>
         /// Gets a value indicating whether this span was already stopped.
         /// </summary>

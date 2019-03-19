@@ -41,6 +41,8 @@ namespace OpenCensus.Trace
             }
         }
 
+        public IStartEndSpanCallbacks Callbacks { get; set; }
+
         public IScope WithSpan(ISpan span)
         {
             if (span == null)

@@ -59,7 +59,7 @@ namespace OpenCensus.Collector.Dependencies.Implementation
             span.PutHttpUserAgentAttribute(userAgents?.FirstOrDefault());
             span.PutHttpRawUrlAttribute(request.RequestUri.OriginalString);
 
-            this.propagationComponent.TextFormat.Inject<HttpRequestMessage>(span.Context, request, (r, k, v) => r.Headers.Add(k, v));
+            this.propagationComponent.TextFormat.Inject<HttpRequestMessage>(span, request, (r, k, v) => r.Headers.Add(k, v));
         }
 
         public override void OnStopActivity(Activity activity, object payload)
